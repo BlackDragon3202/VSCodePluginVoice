@@ -1,0 +1,176 @@
+{
+  "name": "speech",
+  "displayName": "VSCode Speech",
+  "description": "Text to speech",
+  "version": "0.0.1",
+  "publisher": "Mark",
+  "keywords": [
+    "speech",
+    "say",
+    "text to speech",
+    "text-to-speech"
+  ],
+  "engines": {
+    "vscode": "^1.5.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:speech.speakSelectedText",
+    "onCommand:speech.speakSelectedText(doubleSpeed)",
+    "onCommand:speech.speakSelectedText(halfSpeed)",
+    "onCommand:speech.speakDocument",
+    "onCommand:speech.speakSelectedText(oneAndHalfSpeed)",
+    "onCommand:speech.speakTextWithSpeedSelection"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Speech configuration",
+      "properties": {
+        "speech.femalevoice": {
+          "type": [
+            "string",
+            "null"
+          ], 
+          "default": "Microsoft Zira Desktop",
+          "description": "Name of voice used to speak text."
+        }, 
+        "speech.malevoice": {
+          "type": [
+            "string",
+            "null"
+          ], 
+          "default": "Microsoft David Desktop",
+          "description": "Name of voice used to speak text."
+        },
+        "speech.oneAndHalfSpeed": {
+          "type": "number",
+          "default": 1.5,
+          "description": "Speech rate speed multiplier."
+        },
+        "speech.speed": {
+          "type": "number",
+          "default": 1,
+          "description": "Speech rate speed multiplier."
+        },
+        "speech.halfSpeed": {
+          "type": "number",
+          "default": 0.5,
+          "description": "Speech rate speed multiplier."
+        },
+        "speech.doubleSpeed": {
+          "type": "number",
+          "default": 2,
+          "description": "Speech rate speed multiplier."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "speech.speakDocument",
+        "title": "Speak Document",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "speech.speakTextWithSpeedSelection",
+        "title": "Speak Selected Text(with speed selection)",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      
+      {
+        "command": "speech.speakSelectedText",
+        "title": "Speak Selected Text",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "speech.speakSelectedText(doubleSpeed)",
+        "title": "Speak Selected Text(doubleSpeed)",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "speech.speakSelectedText(oneAndHalfSpeed)",
+        "title": "Speak Selected Text(oneAndHalfSpeed)",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "speech.speakSelectedText(halfSpeed)",
+        "title": "Speak Selected Text(halfSpeed)",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "speech.stopSpeaking",
+        "title": "Stop Speaking"
+      }
+    ],
+    "keybindings": [ {
+      "command": "speech.stopSpeaking",
+      "key": "ctrl+alt+z"
+    }, {
+      "command": "speech.speakDocument",
+      "key": "ctrl+alt+d", 
+      "when": "editorTextFocus"
+    }, 
+    {
+      "command": "speech.speakSelectedText",
+      "key": "ctrl+alt+t", 
+      "when": "editorTextFocus && editorHasSelection"
+    }
+  ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "speech.speakDocument",
+          "when": "!editorHasSelection",
+          "group": "8_speech"
+        },
+        
+        {
+          "command": "speech.speakSelectedText",
+          "when": "editorHasSelection",
+          "group": "8_speech"
+        },
+
+        {
+          "command": "speech.speakTextWithSpeedSelection",
+          "when": "editorHasSelection",
+          "group": "8_speech"
+        },
+        {
+          "command": "speech.speakSelectedText(oneAndHalfSpeed)",
+          "when": "editorHasSelection",
+          "group": "8_speech"
+        },
+        {
+          "command": "speech.speakSelectedText(doubleSpeed)",
+          "when": "editorHasSelection",
+          "group": "8_speech"
+        },
+
+        {
+          "command": "speech.speakSelectedText(halfSpeed)",
+          "when": "editorHasSelection",
+          "group": "8_speech"
+        },
+        {
+          "command": "speech.stopSpeaking",
+          "group": "8_speech"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "typescript": "^3.4.0",
+    "@types/vscode": "^1.33.0"
+  },
+  "dependencies": {
+    "say": "^0.15.0"
+  }
+}
